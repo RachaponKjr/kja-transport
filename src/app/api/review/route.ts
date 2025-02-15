@@ -2,8 +2,6 @@ import { writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-export async function GET(request: NextRequest) {}
-
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -37,8 +35,4 @@ export async function POST(request: NextRequest) {
     console.error("Error uploading file:", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
-}
-
-export async function DELETE(request: NextRequest) {
-  return NextResponse.json({ message: "DELETE request received" });
 }

@@ -1,6 +1,6 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion';
-import { IdCard, LineChart, Maximize2, MessageCircleIcon, Minimize2, Phone } from 'lucide-react';
+import { IdCard, Maximize2, MessageCircleIcon, Minimize2, Phone } from 'lucide-react';
 import React, { useState } from 'react'
 
 function Contect() {

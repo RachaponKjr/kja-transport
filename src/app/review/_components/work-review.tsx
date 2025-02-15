@@ -10,7 +10,7 @@ function WorkReview() {
             <div className={cn("grid grid-cols-2 gap-4", "md:grid-cols-3")}>
                 {Array.from({ length: 4 }).map((_, index) => (
                     <>
-                        <Image src={'/bike-1.webp'} alt={'bike'} width={500} height={500} />
+                        <Image src={'/bike-1.webp'} alt={'bike'} width={500} height={500} key={index + 1} />
                     </>
                 ))}
             </div>
