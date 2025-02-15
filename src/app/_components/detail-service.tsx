@@ -46,11 +46,12 @@ function DetailService() {
     )
 }
 
+
 const ListService = ({ title, info }: { title: string, info: string[] }) => {
     return (
         <div className='space-y-2'>
-            <h5 className='text-xl text-primary font-semibold'>{title}</h5>
-            <ul className='list-disc list-inside ml-2 marker:text-sm text-[#444444]'>
+            <h5 className='text-lg lg:text-xl text-primary font-semibold'>{title}</h5>
+            <ul className='list-disc list-inside ml-2 marker:text-sm text-[#444444] text-[14px] lg:text-base'>
                 {info.map((item, index) => (
                     <li key={index}>{item}</li>
                 ))}

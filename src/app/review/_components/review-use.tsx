@@ -7,7 +7,7 @@ function ReviewUse() {
     <div className="flex flex-col items-center justify-center">
       <HeadText text='รีวิวส่วนหนึ่งจากผู้ใช้งานจริง' />
       <div className="text-center max-w-[500px] my-2 space-y-8 text-[#666666]">
-        <span>
+        <span className='text-[14px] lg:text-base'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto necessitatibus hic provident illo
         </span>
         <div className='w-full aspect-square sm:aspect-[16/12] p-6 border border-primary rounded-lg flex flex-col justify-between items-center'>
