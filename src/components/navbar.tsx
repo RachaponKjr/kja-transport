@@ -22,21 +22,9 @@ const Navbar = () => {
             href: "/",
         },
         {
-            name: "ขนส่งมอเตอร์ไซต์",
-            href: "###",
-        },
-        {
-            name: "ขนของย้ายบ้าน คอนโด",
-            href: "###",
-        },
-        {
             name: "ผลงาน",
             href: "/review",
         },
-        {
-            name: "ติดต่อเรา",
-            href: "###",
-        }
     ];
 
     useEffect(() => {
@@ -56,7 +44,7 @@ const Navbar = () => {
     }, [])
 
     return (
-        <div className={cn(scrolled ? "shadow-lg border-b border-gray-600/50" : "shadow-none", "fixed lg:sticky top-0 w-full px-[16px] py-[12px] lg:mx-0 lg:px-[28px] h-min lg:h-[5rem] bg-white flex items-center justify-between lg:rounded-xl")}>
+        <div className={cn(scrolled ? "shadow-lg border-b border-gray-600/50" : "shadow-none", "fixed lg:sticky top-0 w-full px-[16px] py-[12px] lg:mx-0 lg:px-[28px] h-min lg:h-[5rem] bg-white flex items-center justify-between lg:rounded-xl z-50")}>
             <div className="flex flex-col w-full">
                 <div className="flex gap-24 items-center h-full justify-between lg:justify-start w-full flex-row-reverse lg:flex-row">
                     <Image src={"/kja.jpg"} alt="logo" width={40} height={40} />

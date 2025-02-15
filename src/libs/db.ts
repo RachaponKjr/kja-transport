@@ -1,23 +1,16 @@
-import mysql from "mysql2";
+import { MongoClient } from "mongodb";
 
-const connection = mysql.createPool({
-  host: "localhost", // ตั้งค่าฮอสต์ของฐานข้อมูล
-  user: "root", // ตั้งค่าชื่อผู้ใช้ฐานข้อมูล
-  password: "root", // ตั้งค่ารหัสผ่าน
-  database: "kjadatabase", // ตั้งค่าชื่อฐานข้อมูล
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not defined");
+}
+const client = new MongoClient(process.env.DATABASE_URL);
 
-export const query = (query: string, values: unknown) => {
-  return new Promise<unknown>((resolve, reject) => {
-    connection.query(query, values, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-};
+let clientPromise;
+
+if (process.env.NODE_ENV === "development") {
+  clientPromise = client.connect();
+} else {
+  clientPromise = client.connect();
+}
+
+export default clientPromise;

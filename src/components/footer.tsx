@@ -58,17 +58,17 @@ const Footer = () => {
                             <Image src='/kja.jpg' alt='logo' width={40} height={40} />
                             <h1 className='text-xl font-semibold text-primary'>Lorem, ipsum dolor.</h1>
                         </div>
-                        <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero aperiam optio ex, voluptatem illum facilis odit?</span>
-                        <ul className='list-disc ml-8 mt-4'>
+                        <span className='text-[#444444]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero aperiam optio ex, voluptatem illum facilis odit?</span>
+                        <ul className='list-disc ml-8 mt-4 text-[#444444]'>
                             <li>
-                                <span><strong>Phone:</strong> 099-9999999</span>
+                                <span><strong className='text-primary'>Phone : </strong> 099-9999999</span>
                             </li>
                             <li>
-                                <span><strong>Email:</strong> lorem@gmail.com</span>
+                                <span><strong className='text-primary'>Email :</strong> lorem@gmail.com</span>
                             </li>
                         </ul>
                     </div>
-                    <div className='gap-4 flex flex-row md:flex-row flex-wrap justify-between w-full'>
+                    <div className='gap-4 flex flex-row md:flex-row flex-wrap justify-between w-full text-[#444444]'>
                         {/* Link */}
                         <div className='max-w-[250px] '>
                             <h6 className='font-semibold text-primary'>ลิงค์ที่มีประโยชน์</h6>
@@ -101,7 +101,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className='text-center mt-10'>
+                <div className='text-center mt-10 text-primary font-medium'>
                     <span>ลิขสิทธิ์ © 2568 Lorem, ipsum dolor.</span>
                 </div>
             </div>
