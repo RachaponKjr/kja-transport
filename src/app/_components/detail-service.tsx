@@ -7,7 +7,7 @@ function DetailService() {
         <div className='space-y-4'>
             <HeadText text='รายละเอียดการให้บริการ' />
             <div className='space-y-8'>
-                <div className='flex justify-center w-full'>
+                <div className='flex justify-center'>
                     <Image src={'/bike-1.webp'} alt={'bike'} width={250} height={250} />
                 </div>
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
