@@ -67,7 +67,8 @@ const Navbar = () => {
                                     key={index + 1}
                                     className={
                                         cn("cursor-pointer text-[#333333] text-sm px-2 py-2 flex items-center relative  hover:text-primary font-medium",
-                                            "hover:before:content-[''] hover:before:absolute hover:before:w-full hover:before:h-[2px] hover:before:bottom-0 hover:before:left-0 hover:before:bg-primary",
+                                            "lg:hover:before:content-[''] hover:before:absolute hover:before:w-full hover:before:h-[2px] hover:before:bottom-0 hover:before:left-0 hover:before:bg-primary",
+                                            "hover:before:content-none"
                                         )
                                     }
                                 >
@@ -90,9 +91,9 @@ const Navbar = () => {
                                     key={index + 1}
                                     className={
                                         cn("cursor-pointer text-[#333333] text-sm px-2 py-2 flex items-center relative  hover:text-primary font-medium",
-                                            "hover:before:content-[''] hover:before:absolute hover:before:w-full hover:before:h-[2px] hover:before:bottom-0 hover:before:left-0 hover:before:bg-primary",
                                         )
                                     }
+                                    onClick={() => setIsOpen(false)}
                                 >
                                     <Link href={item.href}>{item.name}</Link>
                                 </li>
