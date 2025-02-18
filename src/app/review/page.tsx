@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import ReviewUse from "./_components/review-use";
 import WorkReview from "./_components/work-review";

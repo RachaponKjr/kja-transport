@@ -1,5 +1,6 @@
 import HeadText from '@/components/ui/head-text'
 import React from 'react'
+import { motion } from 'motion/react';
 
 function CityInfo() {
     return (
@@ -19,10 +20,15 @@ function CityInfo() {
 
 const Info = ({ titel, info }: { titel: string, info: string }) => {
     return (
-        <div className='flex flex-col gap-2'>
+        <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className='flex flex-col gap-2'>
             <h4 className='text-lg lg:text-xl text-primary font-semibold'>{titel}</h4>
             <span className='text-[#444444] text-[14px] lg:text-base'>{info}</span>
-        </div>
+        </motion.div>
     )
 }
 

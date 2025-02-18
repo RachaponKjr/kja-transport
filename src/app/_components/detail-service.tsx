@@ -1,6 +1,7 @@
 import HeadText from '@/components/ui/head-text'
 import Image from 'next/image'
 import React from 'react'
+import { motion } from 'motion/react';
 
 function DetailService() {
     return (
@@ -11,15 +12,25 @@ function DetailService() {
                     <Image src={'/bike-1.webp'} alt={'bike'} width={250} height={250} />
                 </div>
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                    <div className='space-y-8'>
+                    <motion.div
+                        initial={{ opacity: 0, y: 100 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className='space-y-8'>
                         <ListService
                             title='ประเภทรถที่ให้บริการขนส่งสินค้า'
                             info={['บริการรถรับจ้าง 4 ล้อ รถกระบะตู้ทึบ, กระบะคอก', 'บริการรถรับจ้าง 6 ล้อ ตู้ทึบ, คอก']} />
                         <ListService
                             title='เงื่อนไขการรับประกันสินค้า'
                             info={['รับประกันความเสียหายไม่เกิน 10,000 บาท']} />
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 100 }}
+                        transition={{ duration: 0.8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
                         <ListService
                             title='บริการของเรา'
                             info={[
@@ -27,8 +38,12 @@ function DetailService() {
                                 'บริการรับจ้างขนย้ายรถมอเตอร์ไซค์ ขนย้ายรถบิ๊กไบค์',
                                 'บริการรับ-ส่งสินค้า ส่งของต่างจังหวัดทั่วประเทศ',
                                 'บริการขนส่งสัตว์เลี้ยงทุกชนิด']} />
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 100 }}
+                        transition={{ duration: 0.8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}>
                         <ListService
                             title='อัตตราค่าบริการเริ่มต้น'
                             info={[
@@ -39,7 +54,7 @@ function DetailService() {
                                 '1,500บาท จาก กทม-ภาคเหนือ',
                                 '1,500บาท จาก กทม-ภาคใต้',
                             ]} />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </div>
