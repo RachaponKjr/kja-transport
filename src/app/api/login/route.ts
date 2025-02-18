@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import "dotenv/config";
 const client = new MongoClient(
   "mongodb+srv://rachapon:KG3NhAy2gixXTd0s@cluster0.bh3cl.mongodb.net/"
 );
@@ -25,6 +25,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 });
     }
 
+    if (!process.env.SECRET_KEY) {
+      throw new Error("SECRET_KEY is not defined");
+    }
     const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });

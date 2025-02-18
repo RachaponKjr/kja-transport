@@ -17,7 +17,7 @@ const layout = ({
         if (!adminToken) {
             router.push('/admin')
         }
-    }, [])
+    }, [adminToken, router])
     return (
         <div className='flex p-4 border-x'>
             <div className='min-h-[30rem] w-max  border-r-2 pr-4 flex flex-col justify-between gap-4 text-center'>
