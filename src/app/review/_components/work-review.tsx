@@ -38,7 +38,7 @@ function WorkReview() {
                     loop
                     modules={[Autoplay]}
                 >
-                    {reviews.map((review: any, index: number) => {
+                    {reviews.map((review: { imageUrl: string }, index: number) => {
                         return (
                             <>
                                 <SwiperSlide key={index + 1}>

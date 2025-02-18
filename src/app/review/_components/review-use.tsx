@@ -48,7 +48,7 @@ function ReviewUse() {
             loop
             modules={[Autoplay]}
           >
-            {reviews.map((review: any, index: number) => (
+            {reviews.map((review: { imageUrl: string; reviewText: string; name: string; reviewLink?: string }, index: number) => (
               <SwiperSlide key={index}>
                 <motion.div
                   initial={{ opacity: 0, }}
