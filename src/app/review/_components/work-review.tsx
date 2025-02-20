@@ -37,7 +37,7 @@ function WorkReview() {
                     loop
                     modules={[Autoplay]}
                 >
-                    {reviews.map((review: { imageUrl: string }, index: number) => {
+                    {reviews.map((review: { imageBase64: string }, index: number) => {
                         return (
                             <>
                                 <SwiperSlide key={index + 1}>
@@ -47,7 +47,7 @@ function WorkReview() {
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.8 }}
                                         className='md:w-[500px] place-self-center aspect-square sm:aspect-[16/12] rounded-lg flex flex-col justify-between items-center'>
-                                        <Image src={review.imageUrl} alt={'images'} width={500} height={500} />
+                                        <Image src={review.imageBase64} alt={'images'} width={500} height={500} />
                                     </motion.div>
                                 </SwiperSlide>
                             </>

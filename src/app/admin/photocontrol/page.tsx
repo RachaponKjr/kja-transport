@@ -69,6 +69,7 @@ const page = () => {
         getPerformance();
     }, [])
 
+    console.log(ImgsShow);
     return (
         <div className='flex h-full '>
 
@@ -87,7 +88,7 @@ const page = () => {
                     {ImgsShow.map((img, index) => (
                         <div key={index} className='flex gap-2 items-center w-full relative aspect-square'>
                             <Image src={img.imageBase64} fill objectFit='cover' alt='img' />
-                            <div onClick={() => deletePerformance(img._id)} className='absolute top-2 right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center'></div>
+                            <div onClick={() => deletePerformance(img._id)} className='absolute top-2 right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer text-white'>X</div>
                         </div>
                     ))}
                 </div>

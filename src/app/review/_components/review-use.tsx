@@ -47,7 +47,7 @@ function ReviewUse() {
             loop
             modules={[Autoplay]}
           >
-            {reviews.map((review: { imageUrl: string; reviewText: string; name: string; reviewLink?: string }, index: number) => (
+            {reviews.map((review: { imageBase64: string; reviewText: string; name: string; reviewLink?: string }, index: number) => (
               <SwiperSlide key={index}>
                 <motion.div
                   initial={{ opacity: 0, }}
@@ -55,7 +55,7 @@ function ReviewUse() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
                   className='w-full aspect-square sm:aspect-[16/12] p-6 border border-primary rounded-lg flex flex-col justify-between items-center'>
-                  <Image src={review.imageUrl} className='w-[5rem] aspect-square rounded-md bg-neutral-200/50' alt='' width={500} height={500} />
+                  <Image src={review.imageBase64} className='w-[5rem] aspect-square rounded-md bg-neutral-200/50' alt='' width={500} height={500} />
                   <p className='text-[14px] font-medium w-full break-all'>{review.reviewText}</p>
                   <div className='space-y-2'>
                     <h5 className='font-semibold text-primary text-xl'>{review.name}</h5>
