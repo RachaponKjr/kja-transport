@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
 interface PerformanceType {
-    imageUrl: string;
+    imageBase64: string;
     _id: string;
     timestamp: number
 }
@@ -86,7 +86,7 @@ const page = () => {
                 <div className='grid grid-cols-5 gap-4'>
                     {ImgsShow.map((img, index) => (
                         <div key={index} className='flex gap-2 items-center w-full relative aspect-square'>
-                            <Image src={img.imageUrl} fill objectFit='cover' alt='img' />
+                            <Image src={img.imageBase64} fill objectFit='cover' alt='img' />
                             <div onClick={() => deletePerformance(img._id)} className='absolute top-2 right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center'></div>
                         </div>
                     ))}

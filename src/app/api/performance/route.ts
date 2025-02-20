@@ -1,15 +1,7 @@
 // handler.ts
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import { writeFile } from "fs/promises";
 import { connectDB, closeDB } from "@/libs/mongodb"; // ใช้ connectDB และ closeDB
 import { ObjectId } from "mongodb";
-
-const generateUniqueFileName = (originalFileName: string) => {
-  const extension = path.extname(originalFileName);
-  const timestamp = Date.now();
-  return `${timestamp}${extension}`;
-};
 
 export async function POST(request: NextRequest) {
   let client;
@@ -20,7 +12,6 @@ export async function POST(request: NextRequest) {
     const collection = database.collection("performance");
 
     const formData = await request.formData();
-
     const file = formData.get("file") as File | null;
 
     if (!file) {
@@ -30,32 +21,25 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const newFileName = generateUniqueFileName(file.name);
+    // แปลง Buffer เป็น Base64
+    const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-
-    const filePath = path.join(uploadDir, newFileName);
     const timestamp = Date.now();
-    await writeFile(filePath, buffer);
 
+    // บันทึก Base64 ลง MongoDB
     await collection.insertOne({
-      imageUrl: `/uploads/${newFileName}`,
+      imageBase64: base64String,
       timestamp,
     });
 
     return NextResponse.json({
       message: "Upload successful",
-      imageUrl: `/uploads/${newFileName}`,
+      imageBase64: base64String,
       timestamp,
     });
   } catch (error) {
     console.error("Error uploading file:", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
-  } finally {
-    // ไม่ปิดการเชื่อมต่อที่นี่, เพราะเราจะปิดในกรณีที่แอปหยุดทำงาน
-    // if (client) {
-    //   await closeDB();
-    // }
   }
 }
 

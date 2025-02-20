@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import { writeFile } from "fs/promises";
 import { connectDB, closeDB } from "@/libs/mongodb";
 import { ObjectId } from "mongodb";
-
-const generateUniqueFileName = (originalFileName: string) => {
-  const extension = path.extname(originalFileName);
-  const timestamp = Date.now();
-  return `${timestamp}${extension}`;
-};
 
 export async function POST(request: NextRequest) {
   let client;
@@ -18,11 +10,9 @@ export async function POST(request: NextRequest) {
     const collection = database.collection("reviews");
 
     const formData = await request.formData();
-
     const name = formData.get("name") as string;
     const reviewText = formData.get("reviewText") as string;
     const reviewLink = formData.get("reviewLink") as string;
-
     const file = formData.get("file") as File | null;
 
     if (!name || !reviewText) {
@@ -36,19 +26,17 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const newFileName = generateUniqueFileName(file.name);
+    // แปลง Buffer เป็น Base64
+    const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    const uploadDir = path.join(process.cwd(), "public/reviews-images");
-
-    const filePath = path.join(uploadDir, newFileName);
     const timestamp = Date.now();
-    await writeFile(filePath, buffer);
 
+    // บันทึก Base64 ลง MongoDB
     await collection.insertOne({
       name,
       reviewText,
       reviewLink,
-      imageUrl: `/reviews-images/${newFileName}`,
+      imageBase64: base64String, // ใช้ imageBase64 แทน imageUrl
       timestamp,
     });
 
@@ -57,7 +45,7 @@ export async function POST(request: NextRequest) {
       name,
       reviewText,
       reviewLink,
-      imageUrl: `/reviews-images/${newFileName}`,
+      imageBase64: base64String,
       timestamp,
     });
   } catch (error) {

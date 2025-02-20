@@ -12,7 +12,7 @@ interface DataType {
 }
 
 interface ReviewType {
-    imageUrl: string
+    imageBase64: string
     _id: string
     name: string
     reviewLink: string
@@ -157,7 +157,7 @@ const page = () => {
                         <>
                             <div key={index + 1} className='my-4 flex items-center justify-between border-b py-2'>
                                 <div className='flex gap-2'>
-                                    <Image src={item.imageUrl} alt='' width={100} height={100} />
+                                    <Image src={item.imageBase64} alt='' width={100} height={100} />
                                     <div className='h-full flex flex-col gap-2'>
                                         <h3>ชื่อ : {item.name}</h3>
                                         <span className='line-clamp-2'>-ข้อความ : {item.reviewText}</span>
