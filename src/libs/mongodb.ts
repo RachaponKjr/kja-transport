@@ -12,7 +12,6 @@ export const connectDB = async () => {
   if (!isConnected) {
     await client.connect();
     isConnected = true;
-    console.log("MongoDB connected");
   }
   return client;
 };
@@ -21,6 +20,5 @@ export const closeDB = async () => {
   if (isConnected) {
     await client.close();
     isConnected = false;
-    console.log("MongoDB connection closed");
   }
 };

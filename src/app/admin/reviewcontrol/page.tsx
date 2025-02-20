@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
 import Image from 'next/image'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 
 interface DataType {
@@ -9,6 +9,15 @@ interface DataType {
     reviewText: string
     reviewLink: string
     file: File
+}
+
+interface ReviewType {
+    imageUrl: string
+    _id: string
+    name: string
+    reviewLink: string
+    reviewText: string
+    timestamp: number
 }
 
 
@@ -22,7 +31,7 @@ const page = () => {
         }
     )
 
-    const [review, setReview] = useState([])
+    const [review, setReview] = useState<ReviewType[]>([])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -147,7 +156,7 @@ const page = () => {
                 {review.map((item, index) => {
                     return (
                         <>
-                            <div className='my-4 flex items-center justify-between border-b py-2'>
+                            <div key={index + 1} className='my-4 flex items-center justify-between border-b py-2'>
                                 <div className='flex gap-2'>
                                     <Image src={item.imageUrl} alt='' width={100} height={100} />
                                     <div className='h-full flex flex-col gap-2'>

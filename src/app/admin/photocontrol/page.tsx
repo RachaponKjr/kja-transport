@@ -5,9 +5,16 @@ import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
+interface PerformanceType {
+    imageUrl: string;
+    _id: string;
+    timestamp: number
+}
+
 const page = () => {
     const [img, setImg] = React.useState<File | null>(null)
-    const [ImgsShow, setImgsShow] = React.useState<string[]>([])
+    const [ImgsShow, setImgsShow] = React.useState<PerformanceType[]>([])
+
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData();
@@ -62,7 +69,6 @@ const page = () => {
         getPerformance();
     }, [])
 
-    console.log(ImgsShow);
     return (
         <div className='flex h-full '>
 
