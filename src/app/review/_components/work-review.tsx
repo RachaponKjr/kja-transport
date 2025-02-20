@@ -16,7 +16,6 @@ function WorkReview() {
         }
         const data = await res.json();
         setReviews(data);
-        console.log(data);
     }
 
     useEffect(() => {

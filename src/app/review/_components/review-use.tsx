@@ -17,7 +17,6 @@ function ReviewUse() {
     }
     const data = await res.json();
     setReviews(data);
-    console.log(data);
   }
 
   useEffect(() => {

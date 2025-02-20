@@ -118,7 +118,6 @@ const page = () => {
         void getReview()
     }, [])
 
-    console.log(review)
     return (
         <div className='w-full flex flex-row grow'>
             <form onSubmit={onSubmit} className='space-y-4 p-4 w-[20rem]'>
