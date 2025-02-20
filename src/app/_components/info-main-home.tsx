@@ -7,8 +7,8 @@ import { motion } from 'motion/react';
 function InfoMainHome() {
 
     return (
-        <div className={cn("flex-col", "lg:h-[calc(100vh-10rem)] flex lg:flex-row items-center justify-evenly")}>
-            <div className="space-y-8 lg:max-w-[60%] mt-24 lg:mt-0">
+        <div className={cn("flex-col", "lg:h-[calc(100vh-10rem)] flex md:gap-4 items-center justify-center")}>
+            <div className="space-y-4 md:space-x-8 lg:max-w-[60%] mt-24 lg:mt-0 flex flex-col items-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 100 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ function InfoMainHome() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className='text-[#444444] text-[14px] lg:text-base'>
+                    className='text-[#444444] text-[14px] lg:text-base text-center'>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, optio sit voluptas magni dolorem nostrum, quisquam nemo pariatur magnam, veniam officia. Rerum incidunt iusto repellendus necessitatibus porro perspiciatis itaque quam?
                 </motion.span>
                 <motion.div
@@ -41,7 +41,7 @@ function InfoMainHome() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="relative my-12 lg:my-0">
+                className="relative my-12 lg:my-0 place-items-center">
                 <Image src="/images/sample-image.jpg" alt="Service Image" width={300} height={300} className="w-[300px] aspect-square bg-neutral-200" />
                 {/* หากต้องการภาพที่ซ้อนกันสามารถเปิดบรรทัดนี้ */}
                 {/* <Image src="/images/sample-image.jpg" alt="Background Image" className="w-[300px] aspect-square bg-red-200 absolute -top-[100px] -z-10 -left-[150px]" /> */}

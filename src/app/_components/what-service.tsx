@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 
 function WhatService() {
     return (
-        <div className='flex flex-col lg:flex-row'>
+        <div className='flex flex-col '>
             <div className='flex-1'>
                 <HeadText text='บริการของเรา' />
                 <div className='space-y-6 lg:space-y-12 mt-6 text-[#444444]'>
@@ -40,7 +40,7 @@ function WhatService() {
                     </motion.ul>
                 </div>
             </div>
-            <div className='flex justify-center items-center w-[450px] max-w-full my-12 lg:my-0'>
+            <div className='flex justify-center items-center max-w-full w-full my-12 lg:my-0'>
                 <Image src={'/i.jpg'} alt={'bike'} width={300} height={300} />
             </div>
         </div>

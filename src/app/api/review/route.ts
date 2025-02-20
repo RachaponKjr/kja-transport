@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
-import { MongoClient } from "mongodb";
+import { connectDB, closeDB } from "@/libs/mongodb";
+import { ObjectId } from "mongodb";
 
 const generateUniqueFileName = (originalFileName: string) => {
   const extension = path.extname(originalFileName);
@@ -9,16 +10,12 @@ const generateUniqueFileName = (originalFileName: string) => {
   return `${timestamp}${extension}`;
 };
 
-const client = new MongoClient(
-  "mongodb+srv://rachapon:KG3NhAy2gixXTd0s@cluster0.bh3cl.mongodb.net/"
-);
-
 export async function POST(request: NextRequest) {
+  let client;
   try {
-    await client.connect();
+    client = await connectDB();
     const database = client.db("KJADATABASE");
     const collection = database.collection("reviews");
-    // Debug: Log the headers
 
     const formData = await request.formData();
 
@@ -27,6 +24,10 @@ export async function POST(request: NextRequest) {
     const reviewLink = formData.get("reviewLink") as string;
 
     const file = formData.get("file") as File | null;
+
+    if (!name || !reviewText) {
+      return NextResponse.json({ error: "กรุณาใส่ ชื่อ หรือ ข้อความให้ครบด้วย" }, { status: 400 });
+    }
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -42,6 +43,7 @@ export async function POST(request: NextRequest) {
     const filePath = path.join(uploadDir, newFileName);
     const timestamp = Date.now();
     await writeFile(filePath, buffer);
+
     await collection.insertOne({
       name,
       reviewText,
@@ -49,6 +51,7 @@ export async function POST(request: NextRequest) {
       imageUrl: `/reviews-images/${newFileName}`,
       timestamp,
     });
+
     return NextResponse.json({
       message: "Upload successful",
       name,
@@ -60,32 +63,60 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error uploading file:", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  } finally {
+    if (client) {
+      await closeDB();
+    }
   }
 }
 
 export async function GET() {
+  let client;
   try {
-    await client.connect();
+    client = await connectDB();
     const database = client.db("KJADATABASE");
     const collection = database.collection("reviews");
-    const reviews = await collection.find({}).sort({ _id: -1 }).limit(4).toArray();
+
+    const reviews = await collection.find({}).toArray();
     return NextResponse.json(reviews);
   } catch (error) {
     console.error("Error fetching reviews:", error);
     return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
+  } finally {
+    // if (client) {
+    //   await closeDB();
+    // }
   }
 }
 
 export async function DELETE(request: NextRequest) {
+  let client;
   try {
-    await client.connect();
+    client = await connectDB();
     const database = client.db("KJADATABASE");
     const collection = database.collection("reviews");
+
     const { id } = await request.json();
-    await collection.deleteOne({ _id: id });
+
+    // ตรวจสอบว่า id ถูกต้องและแปลงเป็น ObjectId
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ error: "Invalid ID format" }, { status: 400 });
+    }
+
+    // ลบข้อมูลโดยใช้ ObjectId
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json({ error: "No matching review found to delete" }, { status: 404 });
+    }
+
     return NextResponse.json({ message: "Delete successful" });
   } catch (error) {
     console.error("Error deleting review:", error);
     return NextResponse.json({ error: "Failed to delete review" }, { status: 500 });
+  } finally {
+    if (client) {
+      await closeDB();
+    }
   }
 }

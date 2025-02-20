@@ -1,17 +1,18 @@
-import { MongoClient } from "mongodb";
+// handler.js
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { connectDB, closeDB } from "@/libs/mongodb"; // นำเข้า connectDB และ closeDB
 import "dotenv/config";
-const client = new MongoClient(
-  "mongodb+srv://rachapon:KG3NhAy2gixXTd0s@cluster0.bh3cl.mongodb.net/"
-);
 
 export async function POST(request: NextRequest) {
+  let client;
   try {
-    await client.connect();
+    // เชื่อมต่อ MongoDB
+    client = await connectDB();
     const database = client.db("KJADATABASE");
     const collection = database.collection("users");
+
     const { username, password } = await request.json();
     const user = await collection.findOne({ username });
 
@@ -19,15 +20,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 });
     }
 
+    // ตรวจสอบรหัสผ่าน
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 });
     }
 
+    // ตรวจสอบว่า SECRET_KEY มีหรือไม่
     if (!process.env.SECRET_KEY) {
       throw new Error("SECRET_KEY is not defined");
     }
+
+    // สร้าง JWT
     const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
@@ -36,5 +41,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error logging in:", error);
     return NextResponse.json({ error: "Failed to log in" }, { status: 500 });
+  } finally {
+    // ปิดการเชื่อมต่อ MongoDB
+    if (client) {
+      await closeDB();
+    }
   }
 }

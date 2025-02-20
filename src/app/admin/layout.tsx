@@ -16,6 +16,8 @@ const layout = ({
     useEffect(() => {
         if (!adminToken) {
             router.push('/admin')
+        } else {
+            router.push('/admin/reviewcontrol')
         }
     }, [adminToken, router])
     return (
